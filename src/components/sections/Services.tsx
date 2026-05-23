@@ -30,7 +30,7 @@ export function Services() {
               >
                 {svc.title}
               </h3>
-              <p className="mb-3 text-sm font-500 text-[var(--color-accent)]">{svc.price}</p>
+              <p className="mb-3 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{svc.engagement}</p>
               <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">{svc.description}</p>
             </div>
           ))}

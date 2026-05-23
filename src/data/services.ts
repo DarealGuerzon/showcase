@@ -5,29 +5,33 @@ export const services: Service[] = [
     id: 'analytics',
     icon: 'chart-dots',
     title: 'GA4 + GTM setup',
-    price: 'from $150',
-    description: 'Custom data layers, event tracking, pixel installs, and broken setup fixes across any stack.',
+    engagement: 'Setup · Audit',
+    description:
+      'Reliable analytics you can actually trust. Proper event tracking, custom data layers, and conversion funnels that match how your business actually sells. I also fix legacy setups that look correct but quietly report wrong numbers.',
   },
   {
     id: 'automation',
     icon: 'robot',
     title: 'n8n automation',
-    price: 'from $120 / workflow',
-    description: 'Lead routing, CRM syncs, Slack alerts — any repetitive process turned into a clean workflow.',
+    engagement: 'Project work',
+    description:
+      'Stop paying your team to copy-paste between tools. I map out the repetitive work eating their week, then build reliable n8n workflows that handle lead routing, CRM syncs, notifications, and reporting — quietly, in the background.',
   },
   {
     id: 'fullstack',
     icon: 'code',
     title: 'Full-stack dev',
-    price: '$30–50 / hr',
-    description: 'Next.js, Supabase, REST APIs, internal tools. Available for project work or part-time retainer.',
+    engagement: 'Project · Retainer',
+    description:
+      'Internal tools, dashboards, and client deliverables built with Next.js + Supabase. Comfortable taking over messy inherited codebases, shipping features end-to-end, and explaining technical decisions to non-technical stakeholders.',
   },
   {
     id: 'wordpress',
     icon: 'browser',
     title: 'WordPress dev',
-    price: 'from $80',
-    description: 'Custom themes, plugin dev, landing pages, performance fixes, and Elementor builds.',
+    engagement: 'Project work',
+    description:
+      'Custom themes, fast landing pages, and the cleanup work most freelancers skip — plugin conflicts, broken pages, Core Web Vitals fixes, and Elementor templates your team can actually reuse.',
   },
 ]
 

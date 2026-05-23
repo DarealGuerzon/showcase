@@ -31,7 +31,7 @@ export interface Service {
   id: string
   icon: string
   title: string
-  price: string
+  engagement: string
   description: string
 }
 
