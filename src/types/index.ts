@@ -1,6 +1,5 @@
 export type ProjectType =
   | 'internal-tool'
-  | 'analytics'
   | 'automation'
   | 'fullstack'
   | 'frontend'
@@ -18,6 +17,7 @@ export interface Project {
   type: ProjectType
   typeLabel: string
   description: string
+  decisions?: string[]
   stack: string[]
   results: ResultBadge[]
   isInternal?: boolean
@@ -25,6 +25,7 @@ export interface Project {
   credential?: string
   liveUrl?: string
   repoUrl?: string
+  codePrivateNote?: string
 }
 
 export interface Service {

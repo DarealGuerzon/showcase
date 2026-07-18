@@ -2,33 +2,25 @@ import { Service, SkillGroup } from '@/types'
 
 export const services: Service[] = [
   {
-    id: 'analytics',
-    icon: 'chart-dots',
-    title: 'GA4 + GTM setup',
-    engagement: 'Setup · Audit',
+    id: 'internal-tools',
+    icon: 'layout',
+    title: 'Internal Tools & Dashboards',
+    engagement: 'Project · Retainer',
     description:
-      'Reliable analytics you can actually trust. Proper event tracking, custom data layers, and conversion funnels that match how your business actually sells. I also fix legacy setups that look correct but quietly report wrong numbers.',
+      'Custom internal tools your team actually uses — approval workflows, admin panels, client portals, reporting dashboards. Next.js + Supabase, with auth, row-level security, and a handoff doc. Built to still work on day 90.',
   },
   {
     id: 'automation',
     icon: 'robot',
-    title: 'n8n automation',
+    title: 'Workflow Automation',
     engagement: 'Project work',
     description:
-      'Stop paying your team to copy-paste between tools. I map out the repetitive work eating their week, then build reliable n8n workflows that handle lead routing, CRM syncs, notifications, and reporting — quietly, in the background.',
-  },
-  {
-    id: 'fullstack',
-    icon: 'code',
-    title: 'Full-stack dev',
-    engagement: 'Project · Retainer',
-    description:
-      'Internal tools, dashboards, and client deliverables built with Next.js + Supabase. Comfortable taking over messy inherited codebases, shipping features end-to-end, and explaining technical decisions to non-technical stakeholders.',
+      'Ops automation with n8n and custom code — email triage and routing, approval chains, data syncs between your SaaS tools, scheduled report generation, webhook integrations.',
   },
   {
     id: 'wordpress',
     icon: 'browser',
-    title: 'WordPress dev',
+    title: 'WordPress Development',
     engagement: 'Project work',
     description:
       'Custom themes, fast landing pages, and the cleanup work most freelancers skip — plugin conflicts, broken pages, Core Web Vitals fixes, and Elementor templates your team can actually reuse.',
@@ -37,27 +29,23 @@ export const services: Service[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: 'Frontend',
-    skills: ['React', 'Next.js 14', 'TypeScript', 'Vue.js', 'Tailwind CSS', 'WordPress'],
+    category: 'Core',
+    skills: ['TypeScript', 'React 18/19', 'Next.js 14–16 (App Router)', 'Node.js', 'Tailwind CSS'],
   },
   {
-    category: 'Backend',
-    skills: ['Node.js', 'Express.js', 'Laravel', 'PHP', 'Supabase', 'PostgreSQL', 'MongoDB', 'REST APIs'],
+    category: 'Data & Backend',
+    skills: ['Supabase (Auth/Postgres/Storage/Realtime)', 'PostgreSQL + row-level security', 'Drizzle ORM', 'Redis/Upstash', 'REST APIs', 'MongoDB'],
   },
   {
-    category: 'Analytics',
-    skills: ['GA4', 'GTM', 'Meta Pixel', 'TikTok Pixel', 'Custom data layers', 'Looker Studio'],
-  },
-  {
-    category: 'DevOps',
-    skills: ['Git', 'GitHub', 'Vercel', 'CI/CD', 'Jira'],
+    category: 'Reliability',
+    skills: ['Vitest', 'Pino structured logging', 'Rate limiting', 'Caching strategy (SWR/dedup/prewarm)', 'CI/CD', 'GitHub (CODEOWNERS, branch protection, release management)', 'Vercel'],
   },
   {
     category: 'Automation',
-    skills: ['n8n', 'Webhooks', 'Arduino Cloud'],
+    skills: ['n8n', 'Webhooks', 'Cron', 'Arduino/IoT'],
   },
   {
-    category: 'AI tools',
+    category: 'AI tooling',
     skills: ['Claude Code', 'Cursor', 'Lovable'],
   },
 ]

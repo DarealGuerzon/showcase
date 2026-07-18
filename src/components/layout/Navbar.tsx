@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { LINKS } from '@/lib/links'
 
 const links = [
   { label: 'Work', href: '#work' },
@@ -47,6 +48,14 @@ export function Navbar() {
             </a>
           ))}
           <a
+            href={LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
+          >
+            GitHub ↗
+          </a>
+          <a
             href="#contact"
             className="rounded-full bg-[var(--color-accent)] px-4 py-1.5 text-sm font-500 text-[var(--color-bg)] transition-opacity hover:opacity-90"
           >
@@ -80,6 +89,14 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+            <a
+              href={LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base text-[var(--color-text-secondary)]"
+            >
+              GitHub ↗
+            </a>
             <a
               href="#contact"
               onClick={() => setOpen(false)}

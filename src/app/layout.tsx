@@ -6,25 +6,39 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Daryl Guerzon — Full-Stack Developer & Marketing Tech Specialist',
+    default: 'Daryl Guerzon — Full-Stack Developer · Internal Tools & Production Systems',
     template: '%s | Daryl Guerzon',
   },
   description:
-    'Full-stack developer who speaks marketing. I build internal tools, set up tracking that actually works, and automate workflows. Based in Quezon City, PH — working with clients worldwide.',
-  keywords: ['full-stack developer', 'GA4', 'GTM', 'n8n', 'Next.js', 'Supabase', 'Philippines', 'freelance'],
+    'I build internal tools that still work on day 90. Next.js, TypeScript, Supabase, Redis — approval workflows, dashboards, and automations built for production.',
+  keywords: [
+    'full-stack developer',
+    'internal tools',
+    'Next.js',
+    'TypeScript',
+    'Supabase',
+    'Redis',
+    'approval workflow',
+    'dashboard',
+    'automation',
+    'Philippines',
+    'freelance',
+  ],
   authors: [{ name: 'Daryl Guerzon', url: 'https://darylguerzon.dev' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://darylguerzon.dev',
-    title: 'Daryl Guerzon — Full-Stack Developer & Marketing Tech Specialist',
-    description: 'Full-stack developer who speaks marketing. GA4, GTM, n8n, Next.js.',
+    title: 'Daryl Guerzon — Full-Stack Developer · Internal Tools & Production Systems',
+    description:
+      'I build internal tools that still work on day 90. Next.js, TypeScript, Supabase, Redis — approval workflows, dashboards, and automations built for production.',
     siteName: 'Daryl Guerzon',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Daryl Guerzon — Full-Stack Developer',
-    description: 'Full-stack developer who speaks marketing.',
+    title: 'Daryl Guerzon — Full-Stack Developer · Internal Tools',
+    description:
+      'I build internal tools that still work on day 90. Next.js, TypeScript, Supabase, Redis.',
   },
   robots: { index: true, follow: true },
 }

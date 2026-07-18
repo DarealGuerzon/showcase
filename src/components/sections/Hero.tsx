@@ -1,6 +1,6 @@
 import { stats } from '@/data/services'
 
-const pills = ['Next.js 14', 'Supabase', 'GA4 + GTM', 'Meta Pixel', 'n8n', 'TypeScript', 'Laravel', 'WordPress']
+const pills = ['Next.js', 'TypeScript', 'Supabase', 'Redis', 'n8n', 'Arduino/IoT', 'WordPress']
 
 export function Hero() {
   return (
@@ -24,15 +24,14 @@ export function Hero() {
           className="font-display mb-6 text-5xl font-800 leading-[1.05] tracking-tight text-[var(--color-text-primary)] animate-fade-up delay-100 sm:text-7xl lg:text-8xl"
           style={{ fontFamily: 'var(--font-display)' }}
         >
-          Full-stack dev<br />
-          who speaks{' '}
-          <span className="text-[var(--color-accent)]">marketing.</span>
+          I build internal tools<br />
+          that still work on{' '}
+          <span className="text-[var(--color-accent)]">day 90.</span>
         </h1>
 
         {/* Subheading */}
         <p className="mb-8 max-w-xl text-lg leading-relaxed text-[var(--color-text-secondary)] animate-fade-up delay-200">
-          I build internal tools, set up tracking that actually works, and automate the workflows slowing your team down.
-          Based in Quezon City — working with clients worldwide.
+          Full-stack developer (Next.js · TypeScript · Supabase · Redis). I take systems past "it works" — into production: caching that survives concurrent load, auth that survives SSR, releases that survive other people's code.
         </p>
 
         {/* Skill pills */}

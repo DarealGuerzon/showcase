@@ -33,6 +33,19 @@ export function Projects() {
             />
           ))}
         </div>
+
+        {/* Currently building */}
+        <div className="mt-8 rounded-2xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface)]/50 px-6 py-5">
+          <div className="flex items-center gap-3">
+            <span className="flex h-2 w-2 flex-shrink-0">
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)] opacity-75" />
+            </span>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-500 text-[var(--color-text-primary)]">Currently building:</span>{' '}
+              Docs Q&A assistant with a retrieval-eval harness — build log coming.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )

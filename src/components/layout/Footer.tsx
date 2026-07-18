@@ -1,3 +1,5 @@
+import { LINKS } from '@/lib/links'
+
 export function Footer() {
   const year = new Date().getFullYear()
   return (
@@ -19,7 +21,7 @@ export function Footer() {
             LinkedIn
           </a>
           <a
-            href="https://github.com"
+            href={LINKS.github}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[var(--color-text-secondary)] transition-colors"

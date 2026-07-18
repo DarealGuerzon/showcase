@@ -40,6 +40,23 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         {project.description}
       </p>
 
+      {/* Decisions that mattered */}
+      {project.decisions && project.decisions.length > 0 && (
+        <div className="mb-4">
+          <p className="mb-2 text-xs font-500 uppercase tracking-widest text-[var(--color-text-muted)]">
+            Decisions that mattered
+          </p>
+          <ul className="space-y-1.5">
+            {project.decisions.map((d, i) => (
+              <li key={i} className="flex gap-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                <span className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]">›</span>
+                <span>{d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Results */}
       {project.results.length > 0 && (
         <div className="mb-4 flex flex-wrap gap-2">
@@ -55,6 +72,13 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
           <Tag key={s} label={s} />
         ))}
       </div>
+
+      {/* Code private note */}
+      {project.codePrivateNote && (
+        <p className="mt-3 text-xs italic text-[var(--color-text-muted)]">
+          {project.codePrivateNote}
+        </p>
+      )}
 
       {/* Live/repo links if present */}
       {(project.liveUrl || project.repoUrl) && (

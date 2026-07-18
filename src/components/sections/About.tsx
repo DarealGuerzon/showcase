@@ -23,7 +23,7 @@ export function About() {
                 BS Computer Engineering graduate from FEU Tech — Elite Scholar, Dean's Lister, MRSP National Robotics Champion, and PhilDev & DICT Ideathon Finalist.
               </p>
               <p>
-                I work at a digital marketing agency building and maintaining production internal tools — which means I understand both the engineering and the marketing side of the equation. That combination is rare, and it's what I bring to every project.
+                I work on a small engineering team where I've shipped two production systems solo and act as release manager on a live team repo — CODEOWNERS, PR checks, and sole authority on what reaches main.
               </p>
               <p>
                 I'm comfortable taking over messy codebases, shipping features end-to-end, and explaining technical decisions to non-technical stakeholders. I also use AI tooling (Claude Code, Cursor, Lovable) as part of my workflow — not to replace thinking, but to move faster without cutting corners.

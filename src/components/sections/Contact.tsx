@@ -13,7 +13,7 @@ export function Contact() {
             Got a project in mind?
           </h2>
           <p className="mx-auto mb-10 max-w-md text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            Whether you need tracking set up, a workflow automated, or a full-stack build — I'm available for project work and part-time retainers.
+            Whether you need an internal tool built, a workflow automated, or a full-stack system — I'm available for project work and part-time retainers.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
