@@ -13,7 +13,9 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, featured }: ProjectCardProps) {
   const [activeIdx, setActiveIdx] = useState(0)
+  const [showDecisions, setShowDecisions] = useState(false)
   const shots = project.screenshots ?? []
+  const hasDecisions = project.decisions && project.decisions.length > 0
 
   return (
     <article
@@ -28,7 +30,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
       {/* Screenshot carousel */}
       {shots.length > 0 && (
         <div className="relative -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-2xl">
-          <div className={cn('relative', featured ? 'h-72' : 'h-56')}>
+          <div className={cn('relative', featured ? 'h-72' : 'h-60')}>
             {shots.map((src, i) => (
               <div
                 key={src}
@@ -48,7 +50,6 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
             ))}
           </div>
 
-          {/* Dot navigation */}
           {shots.length > 1 && (
             <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
               {shots.map((_, i) => (
@@ -70,7 +71,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
       )}
 
       {/* Header row */}
-      <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="mb-1 text-xs text-[var(--color-text-muted)]">{project.typeLabel}</p>
           <h3
@@ -91,23 +92,6 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         {project.description}
       </p>
 
-      {/* Decisions that mattered */}
-      {project.decisions && project.decisions.length > 0 && (
-        <div className="mb-4">
-          <p className="mb-2 text-xs font-500 uppercase tracking-widest text-[var(--color-text-muted)]">
-            Decisions that mattered
-          </p>
-          <ul className="space-y-1.5">
-            {project.decisions.map((d, i) => (
-              <li key={i} className="flex gap-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                <span className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]">›</span>
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {/* Results */}
       {project.results.length > 0 && (
         <div className="mb-4 flex flex-wrap gap-2">
@@ -124,6 +108,37 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         ))}
       </div>
 
+      {/* Engineering decisions toggle */}
+      {hasDecisions && (
+        <div className="mt-4 border-t border-[var(--color-border)] pt-4">
+          <button
+            onClick={() => setShowDecisions((v) => !v)}
+            className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
+          >
+            <span>Engineering decisions</span>
+            <span
+              className={cn(
+                'inline-block transition-transform duration-200',
+                showDecisions && 'rotate-180'
+              )}
+            >
+              ↓
+            </span>
+          </button>
+
+          {showDecisions && (
+            <ul className="mt-3 space-y-2">
+              {project.decisions!.map((d, i) => (
+                <li key={i} className="flex gap-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                  <span className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]">›</span>
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
       {/* Code private note */}
       {project.codePrivateNote && (
         <p className="mt-3 text-xs italic text-[var(--color-text-muted)]">
@@ -131,7 +146,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         </p>
       )}
 
-      {/* Live/repo links if present */}
+      {/* Live/repo links */}
       {(project.liveUrl || project.repoUrl) && (
         <div className="mt-4 flex gap-4 border-t border-[var(--color-border)] pt-4 text-xs">
           {project.liveUrl && (
