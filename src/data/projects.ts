@@ -31,12 +31,13 @@ export const projects: Project[] = [
     description:
       'Reporting platform serving two audiences from one codebase — a read-only client view and a PIN-gated internal admin view. Integrates three third-party ad APIs with three different auth models, normalized into one typed contract.',
     decisions: [
-      "Replaced framework-default caching with Redis stale-while-revalidate — then iterated it four times after shipping: request deduplication, stale-snapshot responses on concurrent cache misses (so misses don't stampede the origin), a concurrency-capped cron prewarm, and explicit env guards after finding a startup edge case.",
-      'DB snapshot fallback on upstream API failure — a flaky third-party API degrades the data\'s freshness, not the read path.',
-      'Fail-fast env validation: the build fails on missing or malformed env vars, on purpose. Stops bad deploys before they exist.',
-      'Rate limiting (Upstash) with its own cleanup cron, structured request-timing logs (Pino), unit-tested API-response transformers (Vitest), Suspense streaming + prefetch-on-hover so the shell renders before the data lands.',
+      'Three ad APIs, three different auth models and response shapes. Normalized all three into one typed contract at the integration boundary — branching per-provider through the UI means every new feature needs provider-specific code paths.',
+      "Replaced framework-default caching with Redis stale-while-revalidate — then iterated it four times: request deduplication, stale-snapshot responses on concurrent cache misses so misses don't stampede the origin, a concurrency-capped cron prewarm, and explicit env guards after a startup edge case.",
+      'Serverless concurrency required explicit connection pool caps and hard-capped query patterns — default one-connection-per-request exhausts the pool under cold-start load, and an unbounded query blows the request budget.',
+      'An AI report-summary feature needed to degrade, not break. Explicitly tested and shipped the database-failure path — renders "no summary yet" instead of a broken page, rather than assuming only the happy path matters.',
+      'Internal admin view and client view in one codebase required a PIN gate that fails closed — the app refuses to boot without the hash configured, no dev fallback — rather than a route convention that erodes under deadline pressure.',
     ],
-    stack: ['Next.js 14', 'TypeScript', 'Drizzle ORM', 'Supabase Postgres', 'Upstash Redis', 'Pino', 'Vitest'],
+    stack: ['Next.js 14', 'TypeScript', 'Drizzle ORM', 'Supabase Postgres', 'Upstash Redis', 'Zod', 'Pino', 'Vitest'],
     results: [
       { label: 'Dual-audience from one codebase', variant: 'green' },
       { label: '3 ad API integrations', variant: 'purple' },
@@ -54,13 +55,15 @@ export const projects: Project[] = [
     decisions: [
       'Cron jobs and interactive users were sharing one API identity, breaking attribution and rate-limit accounting under concurrent load. Isolated cron onto its own identity context via AsyncLocalStorage — then added per-identity quota instrumentation so the failure mode is visible next time instead of a silent 403.',
       'Designed a 5-layer fallback chain for critical reads (DB mirror → API → build-time seed → health probe) and fixed a code path where an upstream API error could silently wipe data — it now fails loudly instead.',
-      'Hardened uploads: MIME allow-lists, size caps, domain-restricted permissions.',
-      'Own the release gate on a live team repo: CODEOWNERS review requirements, a PR-check pipeline (typecheck/lint/dependency audit), and sole authority on staging → main.',
+      'An upload endpoint had no type or size validation; a rendering path was XSS-vulnerable. Fixed both proactively — MIME allow-listing, upload caps, sanitized output — not just the one flagged path.',
+      'A 3,404-line monolithic view was too large to review safely. Split into a 975-line component plus an extracted data-fetching hook — no full rewrite, no regressed consumers.',
+      'No enforced review gate meant any change could reach production. Added required PR checks (typecheck/lint/dependency audit) and a CODEOWNERS approval gate — conventions erode under deadline pressure; the gate does not.',
     ],
     stack: ['Next.js', 'TypeScript', 'Supabase', 'GitHub API', 'Cron', 'AsyncLocalStorage'],
     results: [
       { label: '90% manual work reduction', variant: 'green' },
       { label: '10–20 daily active users', variant: 'purple' },
+      { label: '3,404 → 975 line refactor', variant: 'amber' },
     ],
     isInternal: true,
     codePrivateNote: 'Code private — sanitized architecture teardown coming soon.',
