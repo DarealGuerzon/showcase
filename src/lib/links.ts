@@ -1,7 +1,7 @@
 // TODO(daryl): Fill in the links below before deploying.
 export const LINKS = {
   // Social / contact
-  github: 'TODO(daryl): https://github.com/YOUR_USERNAME',
+  github: 'https://github.com/DarealGuerzon',
   linkedin: 'https://linkedin.com/in/daryl-guerzon',
   email: 'mailto:guerzondaryl25@gmail.com',
 
