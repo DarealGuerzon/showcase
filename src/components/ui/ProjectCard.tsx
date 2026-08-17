@@ -1,6 +1,9 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 import { Project } from '@/types'
-import { Badge, InternalBadge, CredentialBadge, Tag, ResultBadge } from '@/components/ui/Badge'
+import { InternalBadge, CredentialBadge, Tag, ResultBadge } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 
 interface ProjectCardProps {
@@ -9,6 +12,9 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, featured }: ProjectCardProps) {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const shots = project.screenshots ?? []
+
   return (
     <article
       className={cn(
@@ -19,23 +25,46 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
       {/* Hover accent line */}
       <div className="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-[var(--color-accent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      {/* Screenshot preview */}
-      {project.screenshots && project.screenshots.length > 0 && (
-        <div className={cn(
-          'relative -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-2xl',
-          featured ? 'h-72' : 'h-52'
-        )}>
-          <Image
-            src={project.screenshots[0]}
-            alt={`${project.title} screenshot`}
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-          {project.screenshots.length > 1 && (
-            <span className="absolute bottom-2 right-2 rounded-full bg-[var(--color-bg)]/80 px-2 py-0.5 text-xs text-[var(--color-text-muted)] backdrop-blur-sm">
-              +{project.screenshots.length - 1} more
-            </span>
+      {/* Screenshot carousel */}
+      {shots.length > 0 && (
+        <div className="relative -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-2xl">
+          <div className={cn('relative', featured ? 'h-72' : 'h-56')}>
+            {shots.map((src, i) => (
+              <div
+                key={src}
+                className={cn(
+                  'absolute inset-0 transition-opacity duration-300',
+                  i === activeIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                )}
+              >
+                <Image
+                  src={src}
+                  alt={`${project.title} screenshot ${i + 1}`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Dot navigation */}
+          {shots.length > 1 && (
+            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+              {shots.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIdx(i)}
+                  aria-label={`Screenshot ${i + 1}`}
+                  className={cn(
+                    'h-1.5 rounded-full transition-all duration-200',
+                    i === activeIdx
+                      ? 'w-4 bg-[var(--color-accent)]'
+                      : 'w-1.5 bg-white/50 hover:bg-white/70'
+                  )}
+                />
+              ))}
+            </div>
           )}
         </div>
       )}
