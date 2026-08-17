@@ -30,6 +30,12 @@ export const projects: Project[] = [
     typeLabel: 'Internal tool · Full-stack',
     description:
       'Reporting platform serving two audiences from one codebase — a read-only client view and a PIN-gated internal admin view. Integrates three third-party ad APIs with three different auth models, normalized into one typed contract.',
+    screenshots: [
+      '/images/ppc-01-client-overview.png',
+      '/images/ppc-03-internal-edit.png',
+      '/images/ppc-04-system-status.png',
+      '/images/ppc-02-campaign-drilldown.png',
+    ],
     decisions: [
       'Three ad APIs, three different auth models and response shapes. Normalized all three into one typed contract at the integration boundary — branching per-provider through the UI means every new feature needs provider-specific code paths.',
       "Replaced framework-default caching with Redis stale-while-revalidate — then iterated it four times: request deduplication, stale-snapshot responses on concurrent cache misses so misses don't stampede the origin, a concurrency-capped cron prewarm, and explicit env guards after a startup edge case.",
@@ -52,6 +58,12 @@ export const projects: Project[] = [
     typeLabel: 'Internal tool · Full-stack',
     description:
       'Multi-user internal platform automating 10 recurring workflows (~90% manual-work reduction, 10–20 daily active users). My role evolved from feature builder to the person responsible for reliability and releases.',
+    screenshots: [
+      '/images/seo-01-overview.png',
+      '/images/seo-03-data-sources.png',
+      '/images/seo-04-report-builder.png',
+      '/images/seo-02-keywords.png',
+    ],
     decisions: [
       'Cron jobs and interactive users were sharing one API identity, breaking attribution and rate-limit accounting under concurrent load. Isolated cron onto its own identity context via AsyncLocalStorage — then added per-identity quota instrumentation so the failure mode is visible next time instead of a silent 403.',
       'Designed a 5-layer fallback chain for critical reads (DB mirror → API → build-time seed → health probe) and fixed a code path where an upstream API error could silently wipe data — it now fails loudly instead.',

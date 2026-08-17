@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Project } from '@/types'
 import { Badge, InternalBadge, CredentialBadge, Tag, ResultBadge } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
@@ -17,6 +18,27 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
     >
       {/* Hover accent line */}
       <div className="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-[var(--color-accent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+      {/* Screenshot preview */}
+      {project.screenshots && project.screenshots.length > 0 && (
+        <div className={cn(
+          'relative -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-2xl',
+          featured ? 'h-72' : 'h-52'
+        )}>
+          <Image
+            src={project.screenshots[0]}
+            alt={`${project.title} screenshot`}
+            fill
+            className="object-cover object-top"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+          {project.screenshots.length > 1 && (
+            <span className="absolute bottom-2 right-2 rounded-full bg-[var(--color-bg)]/80 px-2 py-0.5 text-xs text-[var(--color-text-muted)] backdrop-blur-sm">
+              +{project.screenshots.length - 1} more
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Header row */}
       <div className="mb-4 flex items-start justify-between gap-3">

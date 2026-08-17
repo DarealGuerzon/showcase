@@ -18,6 +18,7 @@ export interface Project {
   typeLabel: string
   description: string
   decisions?: string[]
+  screenshots?: string[]
   stack: string[]
   results: ResultBadge[]
   isInternal?: boolean
