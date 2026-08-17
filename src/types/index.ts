@@ -5,6 +5,8 @@ export type ProjectType =
   | 'frontend'
   | 'iot'
   | 'devops'
+  | 'ai'
+  | 'freelance'
 
 export interface ResultBadge {
   label: string
