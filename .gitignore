@@ -43,3 +43,8 @@ next-env.d.ts
 # IDE
 .vscode/
 .idea/
+
+# AI agent tooling (impeccable installer, etc.)
+.claude/
+.codex/
+.cursor/

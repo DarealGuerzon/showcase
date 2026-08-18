@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { Project } from '@/types'
 import { InternalBadge, CredentialBadge, Tag, ResultBadge } from '@/components/ui/Badge'
@@ -15,7 +16,11 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
   const [activeIdx, setActiveIdx] = useState(0)
   const [showDecisions, setShowDecisions] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const shots = project.screenshots ?? []
+
+  // Portal target (document.body) only exists client-side — guard SSR/hydration.
+  useEffect(() => setMounted(true), [])
   const hasDecisions = project.decisions && project.decisions.length > 0
 
   const prev = useCallback(
@@ -46,12 +51,26 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
     <>
       <article
         className={cn(
-          'group relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-all duration-300 hover:border-[var(--color-border-hover)]',
-          featured && 'lg:col-span-2'
+          'group relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-border-hover)]',
+          featured && 'overflow-hidden lg:col-span-2'
         )}
       >
-        {/* Hover accent line */}
-        <div className="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-[var(--color-accent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        {/* Accent line — always lit on the flagship, hover-reveal elsewhere */}
+        <div
+          className={cn(
+            'absolute inset-x-0 top-0 h-px rounded-t-2xl bg-[var(--color-accent)] transition-opacity duration-300',
+            featured ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+          )}
+        />
+
+        {/* Accent glow — echoes the hero motif so the flagship reads as the peak */}
+        {featured && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(200,245,66,0.06) 0%, transparent 70%)' }}
+          />
+        )}
 
         {/* Screenshot carousel */}
         {shots.length > 0 && (
@@ -133,8 +152,15 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         {/* Header row */}
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
-            <p className="mb-1 text-xs text-[var(--color-text-muted)]">{project.typeLabel}</p>
-            <h3 className="font-display text-base font-500 leading-snug text-[var(--color-text-primary)]">
+            <p className={cn('mb-1.5 text-xs text-[var(--color-text-muted)]', featured && 'uppercase tracking-wider')}>
+              {project.typeLabel}
+            </p>
+            <h3
+              className={cn(
+                'font-display font-700 leading-tight tracking-tight text-[var(--color-text-primary)]',
+                featured ? 'text-2xl sm:text-3xl' : 'text-lg'
+              )}
+            >
               {project.title}
             </h3>
           </div>
@@ -145,7 +171,12 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         </div>
 
         {/* Description */}
-        <p className="mb-4 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+        <p
+          className={cn(
+            'mb-4 leading-relaxed text-[var(--color-text-secondary)]',
+            featured ? 'max-w-2xl text-base' : 'text-sm'
+          )}
+        >
           {project.description}
         </p>
 
@@ -153,7 +184,7 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         {project.results.length > 0 && (
           <div className="mb-4 flex flex-wrap gap-2">
             {project.results.map((r) => (
-              <ResultBadge key={r.label} {...r} />
+              <ResultBadge key={r.label} {...r} size={featured ? 'lg' : 'sm'} />
             ))}
           </div>
         )}
@@ -165,26 +196,16 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
           ))}
         </div>
 
-        {/* Engineering decisions toggle */}
+        {/* Engineering decisions — the differentiator, surfaced not buried */}
         {hasDecisions && (
           <div className="mt-4 border-t border-[var(--color-border)] pt-4">
-            <button
-              onClick={() => setShowDecisions((v) => !v)}
-              className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
-            >
-              <span>Engineering decisions</span>
-              <span
-                className={cn(
-                  'inline-block transition-transform duration-200',
-                  showDecisions && 'rotate-180'
-                )}
-              >
-                &#8595;
-              </span>
-            </button>
+            <p className="mb-2.5 text-xs font-500 uppercase tracking-wider text-[var(--color-text-muted)]">
+              Engineering decisions
+            </p>
 
-            {showDecisions && (
-              <ul className="mt-3 space-y-2">
+            {featured ? (
+              // Flagship: every decision inline, two columns on wide screens
+              <ul className="grid gap-2.5 sm:grid-cols-2">
                 {project.decisions!.map((d, i) => (
                   <li key={i} className="flex gap-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
                     <span className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]">&#8250;</span>
@@ -192,6 +213,34 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
                   </li>
                 ))}
               </ul>
+            ) : (
+              // Others: first decision as a teaser, rest on demand
+              <>
+                <ul className="space-y-2">
+                  {(showDecisions ? project.decisions! : project.decisions!.slice(0, 1)).map((d, i) => (
+                    <li key={i} className="flex gap-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                      <span className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]">&#8250;</span>
+                      <span className={cn(!showDecisions && 'line-clamp-2')}>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+                {project.decisions!.length > 1 && (
+                  <button
+                    onClick={() => setShowDecisions((v) => !v)}
+                    aria-expanded={showDecisions}
+                    className="mt-2.5 flex items-center gap-1.5 text-xs text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-dim)]"
+                  >
+                    <span>
+                      {showDecisions
+                        ? 'Show less'
+                        : `${project.decisions!.length - 1} more decision${project.decisions!.length - 1 > 1 ? 's' : ''}`}
+                    </span>
+                    <span className={cn('inline-block transition-transform duration-200', showDecisions && 'rotate-180')}>
+                      &#8595;
+                    </span>
+                  </button>
+                )}
+              </>
             )}
           </div>
         )}
@@ -230,10 +279,10 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
         )}
       </article>
 
-      {/* Lightbox */}
-      {lightboxOpen && shots.length > 0 && (
+      {/* Lightbox — portaled to body so it escapes ancestor stacking contexts */}
+      {mounted && lightboxOpen && shots.length > 0 && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95"
           onClick={() => setLightboxOpen(false)}
         >
           {/* Image container */}
@@ -301,7 +350,8 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
               &#10005;
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )

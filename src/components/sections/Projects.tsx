@@ -8,13 +8,7 @@ export function Projects() {
         {/* Section header */}
         <div className="mb-12 flex items-end justify-between">
           <div>
-            <p className="mb-2 text-xs font-500 uppercase tracking-widest text-[var(--color-accent)]">
-              Selected work
-            </p>
-            <h2
-              className="text-3xl font-700 text-[var(--color-text-primary)] sm:text-4xl"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
+            <h2 className="font-display text-3xl font-700 text-[var(--color-text-primary)] sm:text-4xl">
               What I've built
             </h2>
           </div>

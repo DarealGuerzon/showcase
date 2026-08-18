@@ -1,4 +1,5 @@
 import { skillGroups } from '@/data/services'
+import { CapIcon } from '@/components/ui/icons'
 
 export function About() {
   return (
@@ -8,13 +9,7 @@ export function About() {
 
           {/* Bio */}
           <div>
-            <p className="mb-2 text-xs font-500 uppercase tracking-widest text-[var(--color-accent)]">
-              About
-            </p>
-            <h2
-              className="mb-6 text-3xl font-700 text-[var(--color-text-primary)] sm:text-4xl"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
+            <h2 className="font-display mb-6 text-3xl font-700 text-[var(--color-text-primary)] sm:text-4xl">
               The rare combo.
             </h2>
 
@@ -32,7 +27,7 @@ export function About() {
 
             {/* Education badge */}
             <div className="mt-8 inline-flex items-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
-              <span className="text-lg" aria-hidden>🎓</span>
+              <CapIcon className="text-xl text-[var(--color-accent)]" />
               <div>
                 <p className="text-xs font-500 text-[var(--color-text-primary)]">BS Computer Engineering</p>
                 <p className="text-xs text-[var(--color-text-muted)]">FEU Tech · 2021–2025</p>

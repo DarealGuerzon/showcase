@@ -232,11 +232,18 @@ export const projects: Project[] = [
     typeLabel: 'IoT · Hardware · Fitness',
     description:
       'Hardware-integrated fitness product: Arduino-connected smart kettlebell with a web dashboard for weight tracking. Took an AI-scaffolded base to a shipped, branded product — including a post-launch bug fix in the live Arduino to dashboard data pipeline.',
+    screenshots: [
+      '/images/motivex-dashboard.png',
+      '/images/motivex-exercises.png',
+      '/images/motivex-form-guides.png',
+      '/images/motivex-device-manual.png',
+      '/images/motivex-store.png',
+    ],
     stack: ['Vite', 'React 18', 'TypeScript', 'Supabase', 'Arduino', 'shadcn/ui'],
     results: [
       { label: 'Shipped hardware + software', variant: 'green' },
     ],
-    codePrivateNote: 'TODO(daryl): Live URL pending — check Cloudflare Pages deployment.',
+    codePrivateNote: 'Shipped product — live demo available on request.',
   },
 ]
 

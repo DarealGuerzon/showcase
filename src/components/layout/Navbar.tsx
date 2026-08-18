@@ -67,7 +67,9 @@ export function Navbar() {
         <button
           className="flex flex-col gap-1.5 md:hidden"
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <span className={cn('block h-px w-5 bg-[var(--color-text-primary)] transition-all', open && 'translate-y-2 rotate-45')} />
           <span className={cn('block h-px w-5 bg-[var(--color-text-primary)] transition-all', open && 'opacity-0')} />
@@ -77,7 +79,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-[var(--color-border)] bg-[var(--color-bg)] px-6 py-6 md:hidden">
+        <div id="mobile-menu" className="border-t border-[var(--color-border)] bg-[var(--color-bg)] px-6 py-6 md:hidden">
           <nav className="flex flex-col gap-4">
             {links.map((l) => (
               <a

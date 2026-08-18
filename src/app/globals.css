@@ -14,7 +14,7 @@
 
   --color-text-primary: #f0ede8;
   --color-text-secondary: #8a8680;
-  --color-text-muted: #555250;
+  --color-text-muted: #837d76;   /* lifted to clear 4.5:1 on --color-bg */
 
   --color-accent: #c8f542;       /* electric lime — the bold punch */
   --color-accent-dim: #a8d030;
@@ -74,6 +74,17 @@ body::before {
   color: var(--color-bg);
 }
 
+/* Caret in the accent — themed browser surface */
+html { caret-color: var(--color-accent); }
+
+/* Keyboard focus — visible on the dark ground, invisible to mouse users */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+:focus:not(:focus-visible) { outline: none; }
+
 /* Typography helpers */
 .font-display { font-family: var(--font-display); }
 
@@ -102,3 +113,21 @@ body::before {
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
+
+/* Respect reduced-motion: land content immediately, no entrance or smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-fade-up,
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

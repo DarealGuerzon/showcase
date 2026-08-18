@@ -53,11 +53,12 @@ const resultStyles: Record<ResultBadgeType['variant'], string> = {
   amber: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
 }
 
-export function ResultBadge({ label, variant }: ResultBadgeType) {
+export function ResultBadge({ label, variant, size = 'sm' }: ResultBadgeType & { size?: 'sm' | 'lg' }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-500',
+        'inline-flex items-center rounded-full border font-500',
+        size === 'lg' ? 'px-3 py-1 text-xs' : 'px-2.5 py-0.5 text-[11px]',
         resultStyles[variant]
       )}
     >

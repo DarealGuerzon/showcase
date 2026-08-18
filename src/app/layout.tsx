@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://darylguerzon.dev'),
   title: {
     default: 'Daryl Guerzon — Full-Stack Developer · Internal Tools & Production Systems',
     template: '%s | Daryl Guerzon',
@@ -33,12 +34,14 @@ export const metadata: Metadata = {
     description:
       'I build internal tools that still work on day 90. Next.js, TypeScript, Supabase, Redis — approval workflows, dashboards, and automations built for production.',
     siteName: 'Daryl Guerzon',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Daryl Guerzon — Full-Stack Developer' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Daryl Guerzon — Full-Stack Developer · Internal Tools',
     description:
       'I build internal tools that still work on day 90. Next.js, TypeScript, Supabase, Redis.',
+    images: ['/og.png'],
   },
   robots: { index: true, follow: true },
 }
